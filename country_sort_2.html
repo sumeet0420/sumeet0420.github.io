@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries and Capitals</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Countries and Capitals</h2>
+
+<table id="countryTable">
+    <thead>
+        <tr>
+            <th onclick="sortTable()">Country &#x21D5;</th>
+            <th>Capital</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Afghanistan</td><td>Kabul</td></tr>
+        <tr><td>Albania</td><td>Tirana</td></tr>
+        <tr><td>Algeria</td><td>Algiers</td></tr>
+        <tr><td>Andorra</td><td>Andorra la Vella</td></tr>
+        <tr><td>Angola</td><td>Luanda</td></tr>
+        <tr><td>Argentina</td><td>Buenos Aires</td></tr>
+        <tr><td>Armenia</td><td>Yerevan</td></tr>
+        <tr><td>Australia</td><td>Canberra</td></tr>
+        <tr><td>Austria</td><td>Vienna</td></tr>
+        <tr><td>Azerbaijan</td><td>Baku</td></tr>
+        <!-- Add more countries and capitals here -->
+    </tbody>
+</table>
+
+<script>
+    let sortDirection = "asc";
+
+    function sortTable() {
+        const table = document.getElementById("countryTable");
+        const rows = Array.from(table.rows).slice(1);
+        const countryCells = rows.map(row => row.cells[0]);
+        const countryNames = countryCells.map(cell => cell.innerHTML);
+
+        // Sort country names based on current sort direction
+        countryNames.sort((a, b) => {
+            if (sortDirection === "asc") {
+                return a.toLowerCase() > b.toLowerCase() ? 1 : -1;
+            } else {
+                return a.toLowerCase() < b.toLowerCase() ? 1 : -1;
+            }
+        });
+
+        // Update the country cells with sorted names
+        countryNames.forEach((name, index) => {
+            countryCells[index].innerHTML = name;
+        });
+
+        // Toggle sort direction for the next click
+        sortDirection = sortDirection === "asc" ? "desc" : "asc";
+    }
+</script>
+
+</body>
+</html>
