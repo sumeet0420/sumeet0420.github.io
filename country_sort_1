@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countries and Capitals</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Countries and Capitals</h2>
+
+<table id="countryTable">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">Country &#x21D5;</th>
+            <th>Capital</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Afghanistan</td><td>Kabul</td></tr>
+        <tr><td>Albania</td><td>Tirana</td></tr>
+        <tr><td>Algeria</td><td>Algiers</td></tr>
+        <tr><td>Andorra</td><td>Andorra la Vella</td></tr>
+        <tr><td>Angola</td><td>Luanda</td></tr>
+        <tr><td>Argentina</td><td>Buenos Aires</td></tr>
+        <tr><td>Armenia</td><td>Yerevan</td></tr>
+        <tr><td>Australia</td><td>Canberra</td></tr>
+        <tr><td>Austria</td><td>Vienna</td></tr>
+        <tr><td>Azerbaijan</td><td>Baku</td></tr>
+        <!-- Add more countries and capitals here -->
+    </tbody>
+</table>
+
+<script>
+    function sortTable(columnIndex) {
+        var table, rows, switching, i, x, y, shouldSwitch, direction, switchcount = 0;
+        table = document.getElementById("countryTable");
+        switching = true;
+        direction = "asc";
+        
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("TD")[columnIndex];
+                
+                if (direction === "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (direction === "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount === 0 && direction === "asc") {
+                    direction = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
