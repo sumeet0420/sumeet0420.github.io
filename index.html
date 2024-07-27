@@ -1,49 +1,64 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>
-Home Page
-</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffled Names Table</title>
+    <script>
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function populateTable() {
+            const names = ["Alice", "Bob", "Charlie", "Diana"];
+            const shuffledNames = shuffle(names);
+
+            const tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+
+            for (let i = 0; i < shuffledNames.length; i++) {
+                const row = document.createElement("tr");
+
+                const serialNumberCell = document.createElement("td");
+                serialNumberCell.textContent = i + 1;
+                row.appendChild(serialNumberCell);
+
+                const nameCell = document.createElement("td");
+                nameCell.textContent = shuffledNames[i];
+                row.appendChild(nameCell);
+
+                const radioCell = document.createElement("td");
+                const radioInput = document.createElement("input");
+                radioInput.type = "radio";
+                radioInput.name = "nameRadio";
+                radioInput.value = shuffledNames[i];
+                radioCell.appendChild(radioInput);
+                row.appendChild(radioCell);
+
+                tableBody.appendChild(row);
+            }
+        }
+
+        window.onload = populateTable;
+    </script>
 </head>
 <body>
-<br>
-<br>
-<table name = "table 1" border="2">
-<tr>
-<th>Sr. No.</th>
-<th>Selected</th>
-<th>Name</th>
-</tr>
-<tr>
-<td>1</td>
-<td>
-<input type="radio" name="candidate-1">
-</td>
-<td>Jasmine</td>
-</tr>
-<tr>
-<td>2</td>
-<td>
-<input type="radio" name="candidate-1">
-</td>
-<td>Zebra</td>
-</tr>
-<tr>
-<td>3</td>
-<td>
-<input type="radio" name="candidate-1">
-</td>
-<td>Mark</td>
-</tr>
-<tr>
-<td>4</td>
-<td>
-<input type="radio" name="candidate-1">
-</td>
-<td>Stuart</td>
-</tr>
-</table>
-<br>
-<br>
-<a href="window.html" target="_blank">New Window</a>
+    <h1>Shuffled Names Table</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Serial Number</th>
+                <th>Name</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
 </body>
 </html>
